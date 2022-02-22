@@ -1,0 +1,281 @@
+object foPrincipal: TfoPrincipal
+  Left = 129
+  Height = 407
+  Top = 141
+  Width = 883
+  BorderIcons = [biSystemMenu, biMinimize]
+  BorderStyle = bsSingle
+  Caption = 'Gerenciador de Tarefas'
+  ClientHeight = 407
+  ClientWidth = 883
+  OnShow = FormShow
+  Position = poScreenCenter
+  LCLVersion = '2.0.12.0'
+  object btGerenciarFichas: TButton
+    Left = 696
+    Height = 25
+    Top = 8
+    Width = 179
+    Caption = 'Gerenciar Fichas'
+    OnClick = btGerenciarFichasClick
+    ParentFont = False
+    TabOrder = 0
+  end
+  object grFichasLista: TDBGrid
+    Left = 696
+    Height = 360
+    Top = 40
+    Width = 179
+    Color = clWindow
+    Columns = <    
+      item
+        MinSize = 10
+        MaxSize = 200
+        Title.Caption = 'Fichas Disponíveis'
+        Width = 140
+        FieldName = 'nomeficha'
+      end>
+    DataSource = dsFichasLista
+    ParentFont = False
+    Scrollbars = ssAutoVertical
+    TabOrder = 1
+  end
+  object grListaTarefas: TDBGrid
+    Left = 8
+    Height = 360
+    Top = 40
+    Width = 680
+    Color = clWindow
+    Columns = <    
+      item
+        MinSize = 10
+        MaxSize = 200
+        Title.Caption = 'Tarefa a ser realizada'
+        Width = 510
+        FieldName = 'nometarefa'
+      end    
+      item
+        MinSize = 10
+        MaxSize = 200
+        Title.Caption = 'Situação da Tarefa'
+        Width = 120
+        FieldName = 'opcaotarefa'
+      end>
+    DataSource = dsTarefaRegistro
+    ParentFont = False
+    Scrollbars = ssAutoVertical
+    TabOrder = 2
+  end
+  object edTarefa: TDBEdit
+    Left = 8
+    Height = 23
+    Top = 9
+    Width = 408
+    DataField = 'nometarefa'
+    DataSource = dsTarefaRegistro
+    CharCase = ecNormal
+    MaxLength = 250
+    ParentFont = False
+    TabOrder = 3
+  end
+  object cbOpcao: TComboBox
+    Left = 424
+    Height = 23
+    Top = 9
+    Width = 100
+    ItemHeight = 15
+    ItemIndex = 0
+    Items.Strings = (
+      'Para fazer'
+      'Feito'
+    )
+    OnChange = cbOpcaoChange
+    ParentFont = False
+    TabOrder = 4
+    Text = 'Para fazer'
+  end
+  object nvTarefas: TDBNavigator
+    Left = 528
+    Height = 25
+    Top = 8
+    Width = 160
+    BevelOuter = bvNone
+    ChildSizing.EnlargeHorizontal = crsScaleChilds
+    ChildSizing.EnlargeVertical = crsScaleChilds
+    ChildSizing.ShrinkHorizontal = crsScaleChilds
+    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 100
+    ClientHeight = 25
+    ClientWidth = 160
+    DataSource = dsTarefaRegistro
+    OnClick = nvTarefasClick
+    Options = []
+    ParentFont = False
+    TabOrder = 5
+    VisibleButtons = [nbInsert, nbPost, nbCancel]
+  end
+  object coFichasLista: TSQLite3Connection
+    Connected = False
+    LoginPrompt = False
+    KeepConnection = False
+    Transaction = trFichasLista
+    AlwaysUseBigint = False
+    Left = 760
+    Top = 144
+  end
+  object trFichasLista: TSQLTransaction
+    Active = False
+    Action = caCommitRetaining
+    Database = coFichasLista
+    Left = 760
+    Top = 200
+  end
+  object quFichasLista: TSQLQuery
+    IndexName = 'DEFAULT_ORDER'
+    MaxIndexesCount = 4
+    FieldDefs = <    
+      item
+        Name = 'codigoficha'
+        DataType = ftAutoInc
+        Precision = -1
+      end    
+      item
+        Name = 'nomeficha'
+        DataType = ftString
+        Precision = -1
+        Size = 250
+      end>
+    AfterOpen = quFichasListaAfterOpen
+    Database = coFichasLista
+    Transaction = trFichasLista
+    SQL.Strings = (
+      'SELECT * FROM FICHA ORDER BY CODIGOFICHA DESC'
+    )
+    Params = <>
+    Left = 760
+    Top = 256
+    object quFichasListacodigoficha: TAutoIncField
+      FieldKind = fkData
+      FieldName = 'codigoficha'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = False
+    end
+    object quFichasListanomeficha: TStringField
+      FieldKind = fkData
+      FieldName = 'nomeficha'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 250
+    end
+  end
+  object dsFichasLista: TDataSource
+    DataSet = quFichasLista
+    OnDataChange = dsFichasListaDataChange
+    Left = 760
+    Top = 336
+  end
+  object coTarefaRegistro: TSQLite3Connection
+    Connected = False
+    LoginPrompt = False
+    KeepConnection = False
+    Transaction = trTarefaRegistro
+    AlwaysUseBigint = False
+    Left = 175
+    Top = 157
+  end
+  object trTarefaRegistro: TSQLTransaction
+    Active = False
+    Action = caCommitRetaining
+    Database = coTarefaRegistro
+    Left = 176
+    Top = 208
+  end
+  object quTarefaRegistro: TSQLQuery
+    IndexName = 'DEFAULT_ORDER'
+    MaxIndexesCount = 4
+    FieldDefs = <    
+      item
+        Name = 'codigotarefa'
+        DataType = ftAutoInc
+        Precision = -1
+      end    
+      item
+        Name = 'nometarefa'
+        DataType = ftString
+        Precision = -1
+        Size = 250
+      end    
+      item
+        Name = 'opcaotarefa'
+        DataType = ftString
+        Precision = -1
+        Size = 100
+      end    
+      item
+        Name = 'codigoficha'
+        DataType = ftInteger
+        Precision = -1
+      end>
+    AfterPost = quTarefaRegistroAfterPost
+    BeforePost = quTarefaRegistroBeforePost
+    Database = coTarefaRegistro
+    Transaction = trTarefaRegistro
+    SQL.Strings = (
+      'SELECT * FROM TAREFA WHERE codigoficha=1'
+    )
+    Params = <>
+    Left = 175
+    Top = 264
+    object quTarefaRegistrocodigotarefa: TAutoIncField
+      FieldKind = fkData
+      FieldName = 'codigotarefa'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = False
+    end
+    object quTarefaRegistronometarefa: TStringField
+      FieldKind = fkData
+      FieldName = 'nometarefa'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 250
+    end
+    object quTarefaRegistroopcaotarefa: TStringField
+      FieldKind = fkData
+      FieldName = 'opcaotarefa'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 100
+    end
+    object quTarefaRegistrocodigoficha: TLongintField
+      FieldKind = fkData
+      FieldName = 'codigoficha'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+  end
+  object dsTarefaRegistro: TDataSource
+    DataSet = quTarefaRegistro
+    OnDataChange = dsTarefaRegistroDataChange
+    Left = 320
+    Top = 264
+  end
+end

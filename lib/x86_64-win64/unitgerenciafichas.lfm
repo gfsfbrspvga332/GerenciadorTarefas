@@ -1,0 +1,131 @@
+object foGerenciaFichas: TfoGerenciaFichas
+  Left = 388
+  Height = 316
+  Top = 178
+  Width = 522
+  BorderIcons = [biSystemMenu, biMinimize]
+  BorderStyle = bsSingle
+  Caption = 'Gerenciador de Fichas'
+  ClientHeight = 316
+  ClientWidth = 522
+  OnClose = FormClose
+  OnShow = FormShow
+  Position = poScreenCenter
+  LCLVersion = '2.0.12.0'
+  object edNomeFicha: TDBEdit
+    Left = 8
+    Height = 23
+    Top = 9
+    Width = 336
+    DataField = 'nomeficha'
+    DataSource = dsFichasRegistro
+    CharCase = ecNormal
+    MaxLength = 250
+    ParentFont = False
+    TabOrder = 0
+  end
+  object nvPrincipal: TDBNavigator
+    Left = 352
+    Height = 25
+    Top = 8
+    Width = 160
+    BevelOuter = bvNone
+    ChildSizing.EnlargeHorizontal = crsScaleChilds
+    ChildSizing.EnlargeVertical = crsScaleChilds
+    ChildSizing.ShrinkHorizontal = crsScaleChilds
+    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 100
+    ClientHeight = 25
+    ClientWidth = 160
+    DataSource = dsFichasRegistro
+    Options = []
+    ParentFont = False
+    TabOrder = 1
+    VisibleButtons = [nbInsert, nbPost, nbCancel]
+  end
+  object grPrincipal: TDBGrid
+    Left = 8
+    Height = 264
+    Top = 40
+    Width = 504
+    Color = clWindow
+    Columns = <    
+      item
+        Title.Caption = 'Nome da Ficha'
+        Width = 450
+        FieldName = 'nomeficha'
+      end>
+    DataSource = dsFichasRegistro
+    Enabled = False
+    ParentFont = False
+    Scrollbars = ssAutoVertical
+    TabOrder = 2
+  end
+  object coFichasRegistro: TSQLite3Connection
+    Connected = False
+    LoginPrompt = False
+    DatabaseName = 'C:\Users\Gabriel\Desktop\GerenciadorTarefas\base.db'
+    KeepConnection = False
+    Transaction = trFichasRegistro
+    AlwaysUseBigint = False
+    Left = 104
+    Top = 120
+  end
+  object trFichasRegistro: TSQLTransaction
+    Active = False
+    Action = caCommitRetaining
+    Database = coFichasRegistro
+    Left = 104
+    Top = 168
+  end
+  object quFichasRegistro: TSQLQuery
+    IndexName = 'DEFAULT_ORDER'
+    MaxIndexesCount = 4
+    FieldDefs = <    
+      item
+        Name = 'codigoficha'
+        DataType = ftAutoInc
+        Precision = -1
+      end    
+      item
+        Name = 'nomeficha'
+        DataType = ftString
+        Precision = -1
+        Size = 250
+      end>
+    AfterPost = quFichasRegistroAfterPost
+    Database = coFichasRegistro
+    Transaction = trFichasRegistro
+    SQL.Strings = (
+      'SELECT * FROM FICHA'
+    )
+    Params = <>
+    Left = 104
+    Top = 216
+    object quFichasRegistrocodigoficha: TAutoIncField
+      FieldKind = fkData
+      FieldName = 'codigoficha'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = False
+    end
+    object quFichasRegistronomeficha: TStringField
+      FieldKind = fkData
+      FieldName = 'nomeficha'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 250
+    end
+  end
+  object dsFichasRegistro: TDataSource
+    DataSet = quFichasRegistro
+    Left = 256
+    Top = 216
+  end
+end
