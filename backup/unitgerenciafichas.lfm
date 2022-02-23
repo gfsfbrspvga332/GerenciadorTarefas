@@ -1,7 +1,7 @@
 object foGerenciaFichas: TfoGerenciaFichas
-  Left = 1218
+  Left = 1255
   Height = 316
-  Top = 812
+  Top = 136
   Width = 522
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle

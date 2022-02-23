@@ -40,6 +40,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure nvTarefasClick(Sender: TObject; Button: TDBNavButtonType);
     procedure quFichasListaAfterOpen(DataSet: TDataSet);
+    procedure quFichasListaAfterPost(DataSet: TDataSet);
     procedure quTarefaRegistroAfterPost(DataSet: TDataSet);
     procedure quTarefaRegistroBeforePost(DataSet: TDataSet);
   private
@@ -51,6 +52,7 @@ type
 var
   foPrincipal: TfoPrincipal;
   codigoficha: Integer = 0;
+  estaRegistrando : Integer = 0;
 
 implementation
 
@@ -89,16 +91,23 @@ begin
   coTarefaRegistro.Connected:=False;
   quTarefaRegistro.SQL.Text:='SELECT * FROM TAREFA WHERE codigoficha='+IntToStr(quFichasListacodigoficha.Value);
   quTarefaRegistro.Open;
+
+  //poe o focu no componente de inserção de tarefa
+  edTarefa.SetFocus;
 end;
 
 //ATUALIZA A OPÇÃO QUANDO MUDA O ITEM DA LISTA
 procedure TfoPrincipal.dsTarefaRegistroDataChange(Sender: TObject; Field: TField
   );
 begin
+  //muda o combobox de feito/nao feito de acordo com o valor selecionado na tarefa
   if quTarefaRegistroopcaotarefa.Value = 'Feito' then
     cbOpcao.ItemIndex:=1
   else
-    cbOpcao.ItemIndex:=0
+    cbOpcao.ItemIndex:=0;
+
+  //poe o focu no componente de inserção de tarefa
+  edTarefa.SetFocus;
 end;
 
 //CONFIGURA AS CONEXOES NA ABERTURA DO PROGRAMA
@@ -114,19 +123,43 @@ begin
   quFichasLista.SQL.Text:='SELECT * FROM FICHA ORDER BY CODIGOFICHA DESC';
   quFichasLista.Open;
 
-  //configura o registro de tarefas
-  quTarefaRegistro.SQL.Text:='SELECT * FROM TAREFA WHERE codigoficha=1';
-  quTarefaRegistro.Open;
+
+
+
+
+  //verifica se o banco de fichas não esta vazio, caso esteja insere um lista inicial
+  if quFichasLista.RecordCount = 0 then
+    begin
+      //faz a inserção
+      //coFichasLista.Connected := False;
+      quFichasLista.Insert;
+      quFichasListanomeficha.Value := 'Primeiro dia de uso';
+      quFichasLista.Post;
+    end
+  else
+    begin
+      quFichasLista.Open;
+      quFichasLista.First;
+    end;
+
+
+
+
+
 
   //seleciona a primeira ficha da lista
-  quFichasLista.First;
+  //quFichasLista.First;
 end;
 
+//ao escolher inserir nova tarefa seleciona o componente edit
 procedure TfoPrincipal.nvTarefasClick(Sender: TObject; Button: TDBNavButtonType
   );
 begin
   if Button = nbInsert then
-    edTarefa.SetFocus;
+    begin
+      edTarefa.SetFocus;
+      estaRegistrando := 1;
+    end;
 end;
 
 //AO ABRIR A PESQUISA AQUI POSICIONA O REGISTRO NO ULTIMO REGISTRO FEITO
@@ -151,6 +184,24 @@ begin
       end;
     end;
 end;
+
+
+
+//USADO APENAS NO PRIMEIRO DIA DE UTILIZAÇÃO DO PROGRAMA, FAZ O REGISTRO DA PRIMEIRA FICHA
+procedure TfoPrincipal.quFichasListaAfterPost(DataSet: TDataSet);
+begin
+  //termina de registrar no bd
+  quFichasLista.ApplyUpdates;
+  trFichasLista.CommitRetaining;
+  quFichasLista.Refresh;
+
+  //abre a conexao para listagem
+  quFichasLista.Open;
+  quFichasLista.First;
+end;
+
+
+
 
 //CONFIGURA TUDO DEPOIS DE FAZER O REGISTRO/ATUALIZACAO
 procedure TfoPrincipal.quTarefaRegistroAfterPost(DataSet: TDataSet);

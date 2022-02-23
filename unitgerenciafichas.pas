@@ -60,6 +60,7 @@ procedure TfoGerenciaFichas.FormClose(Sender: TObject;
 begin
   coFichasRegistro.Connected:=False;
   foPrincipal.quFichasLista.Open;
+  foPrincipal.quFichasLista.First;
 end;
 
 //APLICA AS MUDANÇAS NO BANCO DE DADOS

@@ -51,6 +51,7 @@ type
 var
   foPrincipal: TfoPrincipal;
   codigoficha: Integer = 0;
+  estaRegistrando : Integer = 0;
 
 implementation
 
@@ -89,16 +90,23 @@ begin
   coTarefaRegistro.Connected:=False;
   quTarefaRegistro.SQL.Text:='SELECT * FROM TAREFA WHERE codigoficha='+IntToStr(quFichasListacodigoficha.Value);
   quTarefaRegistro.Open;
+
+  //poe o focu no componente de inserção de tarefa
+  edTarefa.SetFocus;
 end;
 
 //ATUALIZA A OPÇÃO QUANDO MUDA O ITEM DA LISTA
 procedure TfoPrincipal.dsTarefaRegistroDataChange(Sender: TObject; Field: TField
   );
 begin
+  //muda o combobox de feito/nao feito de acordo com o valor selecionado na tarefa
   if quTarefaRegistroopcaotarefa.Value = 'Feito' then
     cbOpcao.ItemIndex:=1
   else
-    cbOpcao.ItemIndex:=0
+    cbOpcao.ItemIndex:=0;
+
+  //poe o focu no componente de inserção de tarefa
+  edTarefa.SetFocus;
 end;
 
 //CONFIGURA AS CONEXOES NA ABERTURA DO PROGRAMA
@@ -114,19 +122,19 @@ begin
   quFichasLista.SQL.Text:='SELECT * FROM FICHA ORDER BY CODIGOFICHA DESC';
   quFichasLista.Open;
 
-  //configura o registro de tarefas
-  quTarefaRegistro.SQL.Text:='SELECT * FROM TAREFA WHERE codigoficha=1';
-  quTarefaRegistro.Open;
-
   //seleciona a primeira ficha da lista
   quFichasLista.First;
 end;
 
+//ao escolher inserir nova tarefa seleciona o componente edit
 procedure TfoPrincipal.nvTarefasClick(Sender: TObject; Button: TDBNavButtonType
   );
 begin
   if Button = nbInsert then
-    edTarefa.SetFocus;
+    begin
+      edTarefa.SetFocus;
+      estaRegistrando := 1;
+    end;
 end;
 
 //AO ABRIR A PESQUISA AQUI POSICIONA O REGISTRO NO ULTIMO REGISTRO FEITO

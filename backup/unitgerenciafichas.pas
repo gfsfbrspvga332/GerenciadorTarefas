@@ -51,6 +51,7 @@ begin
   quFichasRegistro.SQL.Text:='SELECT * FROM FICHA';
   quFichasRegistro.Open;
   quFichasRegistro.Insert;
+  edNomeFicha.SetFocus;
 end;
 
 //FECHA A CONEXAO ANTES DE SAIR DA TELA
@@ -67,6 +68,11 @@ begin
   quFichasRegistro.ApplyUpdates;
   trFichasRegistro.CommitRetaining;
   quFichasRegistro.Refresh;
+
+  //ao terminar o registro deixa pronto para realizer outro
+  quFichasRegistro.Open;
+  quFichasRegistro.Insert;
+  edNomeFicha.SetFocus;
 end;
 
 end.
