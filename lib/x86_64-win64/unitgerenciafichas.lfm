@@ -1,7 +1,7 @@
 object foGerenciaFichas: TfoGerenciaFichas
-  Left = 388
+  Left = 1218
   Height = 316
-  Top = 178
+  Top = 812
   Width = 522
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
@@ -11,7 +11,7 @@ object foGerenciaFichas: TfoGerenciaFichas
   OnClose = FormClose
   OnShow = FormShow
   Position = poScreenCenter
-  LCLVersion = '2.0.12.0'
+  LCLVersion = '2.2.0.4'
   object edNomeFicha: TDBEdit
     Left = 8
     Height = 23
@@ -19,7 +19,6 @@ object foGerenciaFichas: TfoGerenciaFichas
     Width = 336
     DataField = 'nomeficha'
     DataSource = dsFichasRegistro
-    CharCase = ecNormal
     MaxLength = 250
     ParentFont = False
     TabOrder = 0
@@ -101,6 +100,7 @@ object foGerenciaFichas: TfoGerenciaFichas
       'SELECT * FROM FICHA'
     )
     Params = <>
+    Macros = <>
     Left = 104
     Top = 216
     object quFichasRegistrocodigoficha: TAutoIncField

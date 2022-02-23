@@ -1,7 +1,7 @@
 object foPrincipal: TfoPrincipal
-  Left = 129
+  Left = 1420
   Height = 407
-  Top = 141
+  Top = 153
   Width = 883
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
@@ -10,7 +10,7 @@ object foPrincipal: TfoPrincipal
   ClientWidth = 883
   OnShow = FormShow
   Position = poScreenCenter
-  LCLVersion = '2.0.12.0'
+  LCLVersion = '2.2.0.4'
   object btGerenciarFichas: TButton
     Left = 696
     Height = 25
@@ -29,8 +29,6 @@ object foPrincipal: TfoPrincipal
     Color = clWindow
     Columns = <    
       item
-        MinSize = 10
-        MaxSize = 200
         Title.Caption = 'Fichas Disponíveis'
         Width = 140
         FieldName = 'nomeficha'
@@ -48,15 +46,11 @@ object foPrincipal: TfoPrincipal
     Color = clWindow
     Columns = <    
       item
-        MinSize = 10
-        MaxSize = 200
         Title.Caption = 'Tarefa a ser realizada'
         Width = 510
         FieldName = 'nometarefa'
       end    
       item
-        MinSize = 10
-        MaxSize = 200
         Title.Caption = 'Situação da Tarefa'
         Width = 120
         FieldName = 'opcaotarefa'
@@ -73,7 +67,6 @@ object foPrincipal: TfoPrincipal
     Width = 408
     DataField = 'nometarefa'
     DataSource = dsTarefaRegistro
-    CharCase = ecNormal
     MaxLength = 250
     ParentFont = False
     TabOrder = 3
@@ -153,6 +146,7 @@ object foPrincipal: TfoPrincipal
       'SELECT * FROM FICHA ORDER BY CODIGOFICHA DESC'
     )
     Params = <>
+    Macros = <>
     Left = 760
     Top = 256
     object quFichasListacodigoficha: TAutoIncField
@@ -231,6 +225,7 @@ object foPrincipal: TfoPrincipal
       'SELECT * FROM TAREFA WHERE codigoficha=1'
     )
     Params = <>
+    Macros = <>
     Left = 175
     Top = 264
     object quTarefaRegistrocodigotarefa: TAutoIncField
