@@ -40,7 +40,6 @@ type
     procedure FormShow(Sender: TObject);
     procedure nvTarefasClick(Sender: TObject; Button: TDBNavButtonType);
     procedure quFichasListaAfterOpen(DataSet: TDataSet);
-    procedure quFichasListaAfterPost(DataSet: TDataSet);
     procedure quTarefaRegistroAfterPost(DataSet: TDataSet);
     procedure quTarefaRegistroBeforePost(DataSet: TDataSet);
   private
@@ -123,32 +122,8 @@ begin
   quFichasLista.SQL.Text:='SELECT * FROM FICHA ORDER BY CODIGOFICHA DESC';
   quFichasLista.Open;
 
-
-
-
-
-  //verifica se o banco de fichas não esta vazio, caso esteja insere um lista inicial
-  if quFichasLista.RecordCount = 0 then
-    begin
-      //faz a inserção
-      //coFichasLista.Connected := False;
-      quFichasLista.Insert;
-      quFichasListanomeficha.Value := 'Primeiro dia de uso';
-      quFichasLista.Post;
-    end
-  else
-    begin
-      quFichasLista.Open;
-      quFichasLista.First;
-    end;
-
-
-
-
-
-
   //seleciona a primeira ficha da lista
-  //quFichasLista.First;
+  quFichasLista.First;
 end;
 
 //ao escolher inserir nova tarefa seleciona o componente edit
@@ -156,10 +131,7 @@ procedure TfoPrincipal.nvTarefasClick(Sender: TObject; Button: TDBNavButtonType
   );
 begin
   if Button = nbInsert then
-    begin
-      edTarefa.SetFocus;
-      estaRegistrando := 1;
-    end;
+    edTarefa.SetFocus;
 end;
 
 //AO ABRIR A PESQUISA AQUI POSICIONA O REGISTRO NO ULTIMO REGISTRO FEITO
@@ -184,24 +156,6 @@ begin
       end;
     end;
 end;
-
-
-
-//USADO APENAS NO PRIMEIRO DIA DE UTILIZAÇÃO DO PROGRAMA, FAZ O REGISTRO DA PRIMEIRA FICHA
-procedure TfoPrincipal.quFichasListaAfterPost(DataSet: TDataSet);
-begin
-  //termina de registrar no bd
-  quFichasLista.ApplyUpdates;
-  trFichasLista.CommitRetaining;
-  quFichasLista.Refresh;
-
-  //abre a conexao para listagem
-  quFichasLista.Open;
-  quFichasLista.First;
-end;
-
-
-
 
 //CONFIGURA TUDO DEPOIS DE FAZER O REGISTRO/ATUALIZACAO
 procedure TfoPrincipal.quTarefaRegistroAfterPost(DataSet: TDataSet);

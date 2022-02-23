@@ -51,7 +51,6 @@ type
 var
   foPrincipal: TfoPrincipal;
   codigoficha: Integer = 0;
-  estaRegistrando : Integer = 0;
 
 implementation
 
@@ -131,10 +130,7 @@ procedure TfoPrincipal.nvTarefasClick(Sender: TObject; Button: TDBNavButtonType
   );
 begin
   if Button = nbInsert then
-    begin
-      edTarefa.SetFocus;
-      estaRegistrando := 1;
-    end;
+    edTarefa.SetFocus;
 end;
 
 //AO ABRIR A PESQUISA AQUI POSICIONA O REGISTRO NO ULTIMO REGISTRO FEITO
