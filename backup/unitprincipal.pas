@@ -51,7 +51,6 @@ type
 var
   foPrincipal: TfoPrincipal;
   codigoficha: Integer = 0;
-  estaRegistrando : Integer = 0;
 
 implementation
 

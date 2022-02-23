@@ -1,7 +1,7 @@
 object foPrincipal: TfoPrincipal
-  Left = 1731
+  Left = 1622
   Height = 407
-  Top = 706
+  Top = 920
   Width = 883
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
