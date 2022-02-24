@@ -121,6 +121,14 @@ begin
   quFichasLista.SQL.Text:='SELECT * FROM FICHA ORDER BY CODIGOFICHA DESC';
   quFichasLista.Open;
 
+  //se o banco de dados estiver vazio insere um registro inicial nas fichas
+  if quFichasLista.RecordCount = 0 then
+    begin
+      quFichasLista.Insert;
+      quFichasListanomeficha.Value:='Gabriel';
+      quFichasLista.Post;
+    end;
+
   //seleciona a primeira ficha da lista
   quFichasLista.First;
 end;
