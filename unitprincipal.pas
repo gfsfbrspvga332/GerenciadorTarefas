@@ -86,9 +86,16 @@ end;
 //MUDA A LISTA DE TAREFAS PARA CADA FICHA SELECIONADA
 procedure TfoPrincipal.dsFichasListaDataChange(Sender: TObject; Field: TField);
 begin
-  coTarefaRegistro.Connected:=False;
-  quTarefaRegistro.SQL.Text:='SELECT * FROM TAREFA WHERE codigoficha='+IntToStr(quFichasListacodigoficha.Value);
-  quTarefaRegistro.Open;
+  if quFichasLista.RecordCount > 0 then
+    begin
+      coTarefaRegistro.Connected:=False;
+      quTarefaRegistro.SQL.Text:='SELECT * FROM TAREFA WHERE codigoficha='+IntToStr(quFichasListacodigoficha.Value);
+      quTarefaRegistro.Open;
+    end
+  else
+    begin
+      coTarefaRegistro.Connected:=False;
+    end;
 
   //poe o focu no componente de inserção de tarefa
   edTarefa.SetFocus;
@@ -120,14 +127,6 @@ begin
   //abre as conexoes
   quFichasLista.SQL.Text:='SELECT * FROM FICHA ORDER BY CODIGOFICHA DESC';
   quFichasLista.Open;
-
-  //se o banco de dados estiver vazio insere um registro inicial nas fichas
-  if quFichasLista.RecordCount = 0 then
-    begin
-      quFichasLista.Insert;
-      quFichasListanomeficha.Value:=DateToStr(Date);
-      quFichasLista.Post;
-    end;
 
   //seleciona a primeira ficha da lista
   quFichasLista.First;
@@ -170,10 +169,10 @@ begin
   //fazer a atualização do banco de dados
   quTarefaRegistro.ApplyUpdates;
   trTarefaRegistro.CommitRetaining;
-  coTarefaRegistro.Connected:=False;
 
   //abre a lista de fichas
   quFichasLista.Open;
+  quFichasLista.First;
 end;
 
 //CONFIGURA TUDO ANTES DE FAZER O REGISTRO/ATUALIZACAO
