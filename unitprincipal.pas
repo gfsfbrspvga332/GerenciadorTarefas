@@ -142,25 +142,8 @@ end;
 
 //AO ABRIR A PESQUISA AQUI POSICIONA O REGISTRO NO ULTIMO REGISTRO FEITO
 procedure TfoPrincipal.quFichasListaAfterOpen(DataSet: TDataSet);
-var
-  indice: Integer;
 begin
-  //se não for a primeira abertura o numero de registros de fichas se maior que 1 faz
-  if (codigoficha <> 0) and (quFichasLista.RecordCount > 1) then
-    begin
-      //move para o primeiro registro
-      quFichasLista.First;
-
-      //faz o loop percorrendo todos os itens da lista de fichas
-      for indice := 1 to quFichasLista.RecordCount do
-      begin
-        //enquanto o valor for diferente do ultimo registro utilizado move a lista
-        if quFichasListacodigoficha.Value <> codigoficha then
-          quFichasLista.Next
-        else
-          break;
-      end;
-    end;
+  quFichasLista.First;
 end;
 
 //CONFIGURA TUDO DEPOIS DE FAZER O REGISTRO/ATUALIZACAO

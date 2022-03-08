@@ -86,9 +86,16 @@ end;
 //MUDA A LISTA DE TAREFAS PARA CADA FICHA SELECIONADA
 procedure TfoPrincipal.dsFichasListaDataChange(Sender: TObject; Field: TField);
 begin
-  coTarefaRegistro.Connected:=False;
-  quTarefaRegistro.SQL.Text:='SELECT * FROM TAREFA WHERE codigoficha='+IntToStr(quFichasListacodigoficha.Value);
-  quTarefaRegistro.Open;
+  if quFichasLista.RecordCount > 0 then
+    begin
+      coTarefaRegistro.Connected:=False;
+      quTarefaRegistro.SQL.Text:='SELECT * FROM TAREFA WHERE codigoficha='+IntToStr(quFichasListacodigoficha.Value);
+      quTarefaRegistro.Open;
+    end
+  else
+    begin
+      coTarefaRegistro.Connected:=False;
+    end;
 
   //poe o focu no componente de inserção de tarefa
   edTarefa.SetFocus;
@@ -138,22 +145,7 @@ procedure TfoPrincipal.quFichasListaAfterOpen(DataSet: TDataSet);
 var
   indice: Integer;
 begin
-  //se não for a primeira abertura o numero de registros de fichas se maior que 1 faz
-  if (codigoficha <> 0) and (quFichasLista.RecordCount > 1) then
-    begin
-      //move para o primeiro registro
-      quFichasLista.First;
-
-      //faz o loop percorrendo todos os itens da lista de fichas
-      for indice := 1 to quFichasLista.RecordCount do
-      begin
-        //enquanto o valor for diferente do ultimo registro utilizado move a lista
-        if quFichasListacodigoficha.Value <> codigoficha then
-          quFichasLista.Next
-        else
-          break;
-      end;
-    end;
+  quFichasLista.First;
 end;
 
 //CONFIGURA TUDO DEPOIS DE FAZER O REGISTRO/ATUALIZACAO

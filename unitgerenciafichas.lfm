@@ -1,22 +1,23 @@
 object foGerenciaFichas: TfoGerenciaFichas
-  Left = 1850
-  Height = 316
-  Top = 60
-  Width = 522
+  Left = 1413
+  Height = 474
+  Top = 252
+  Width = 783
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Gerenciador de Fichas'
-  ClientHeight = 316
-  ClientWidth = 522
+  ClientHeight = 474
+  ClientWidth = 783
+  DesignTimePPI = 144
   OnClose = FormClose
   OnShow = FormShow
   Position = poScreenCenter
   LCLVersion = '2.2.0.4'
   object edNomeFicha: TDBEdit
-    Left = 8
-    Height = 23
-    Top = 9
-    Width = 336
+    Left = 12
+    Height = 33
+    Top = 14
+    Width = 504
     DataField = 'nomeficha'
     DataSource = dsFichasRegistro
     MaxLength = 250
@@ -24,10 +25,10 @@ object foGerenciaFichas: TfoGerenciaFichas
     TabOrder = 0
   end
   object nvPrincipal: TDBNavigator
-    Left = 352
-    Height = 25
-    Top = 8
-    Width = 160
+    Left = 528
+    Height = 38
+    Top = 12
+    Width = 240
     BevelOuter = bvNone
     ChildSizing.EnlargeHorizontal = crsScaleChilds
     ChildSizing.EnlargeVertical = crsScaleChilds
@@ -35,8 +36,8 @@ object foGerenciaFichas: TfoGerenciaFichas
     ChildSizing.ShrinkVertical = crsScaleChilds
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 100
-    ClientHeight = 25
-    ClientWidth = 160
+    ClientHeight = 38
+    ClientWidth = 240
     DataSource = dsFichasRegistro
     Options = []
     ParentFont = False
@@ -44,15 +45,17 @@ object foGerenciaFichas: TfoGerenciaFichas
     VisibleButtons = [nbInsert, nbPost, nbCancel]
   end
   object grPrincipal: TDBGrid
-    Left = 8
-    Height = 264
-    Top = 40
-    Width = 504
+    Left = 12
+    Height = 396
+    Top = 60
+    Width = 756
     Color = clWindow
     Columns = <    
       item
+        MinSize = 15
+        MaxSize = 300
         Title.Caption = 'Nome da Ficha'
-        Width = 450
+        Width = 675
         FieldName = 'nomeficha'
       end>
     DataSource = dsFichasRegistro
@@ -68,15 +71,15 @@ object foGerenciaFichas: TfoGerenciaFichas
     KeepConnection = False
     Transaction = trFichasRegistro
     AlwaysUseBigint = False
-    Left = 104
-    Top = 120
+    Left = 156
+    Top = 180
   end
   object trFichasRegistro: TSQLTransaction
     Active = False
     Action = caCommitRetaining
     Database = coFichasRegistro
-    Left = 104
-    Top = 168
+    Left = 156
+    Top = 252
   end
   object quFichasRegistro: TSQLQuery
     IndexName = 'DEFAULT_ORDER'
@@ -101,8 +104,8 @@ object foGerenciaFichas: TfoGerenciaFichas
     )
     Params = <>
     Macros = <>
-    Left = 104
-    Top = 216
+    Left = 156
+    Top = 324
     object quFichasRegistrocodigoficha: TAutoIncField
       FieldKind = fkData
       FieldName = 'codigoficha'
@@ -125,7 +128,7 @@ object foGerenciaFichas: TfoGerenciaFichas
   end
   object dsFichasRegistro: TDataSource
     DataSet = quFichasRegistro
-    Left = 256
-    Top = 216
+    Left = 384
+    Top = 324
   end
 end

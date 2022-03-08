@@ -1,36 +1,39 @@
 object foPrincipal: TfoPrincipal
-  Left = 1622
-  Height = 407
-  Top = 920
-  Width = 883
+  Left = 1000
+  Height = 610
+  Top = 816
+  Width = 1324
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Gerenciador de Tarefas'
-  ClientHeight = 407
-  ClientWidth = 883
+  ClientHeight = 610
+  ClientWidth = 1324
+  DesignTimePPI = 144
   OnShow = FormShow
   Position = poScreenCenter
   LCLVersion = '2.2.0.4'
   object btGerenciarFichas: TButton
-    Left = 696
-    Height = 25
-    Top = 8
-    Width = 179
+    Left = 1044
+    Height = 38
+    Top = 12
+    Width = 268
     Caption = 'Gerenciar Fichas'
     OnClick = btGerenciarFichasClick
     ParentFont = False
     TabOrder = 0
   end
   object grFichasLista: TDBGrid
-    Left = 696
-    Height = 360
-    Top = 40
-    Width = 179
+    Left = 1044
+    Height = 540
+    Top = 60
+    Width = 268
     Color = clWindow
     Columns = <    
       item
+        MinSize = 15
+        MaxSize = 300
         Title.Caption = 'Fichas Disponíveis'
-        Width = 140
+        Width = 210
         FieldName = 'nomeficha'
       end>
     DataSource = dsFichasLista
@@ -39,20 +42,24 @@ object foPrincipal: TfoPrincipal
     TabOrder = 1
   end
   object grListaTarefas: TDBGrid
-    Left = 8
-    Height = 360
-    Top = 40
-    Width = 680
+    Left = 12
+    Height = 540
+    Top = 60
+    Width = 1020
     Color = clWindow
     Columns = <    
       item
+        MinSize = 15
+        MaxSize = 300
         Title.Caption = 'Tarefa a ser realizada'
-        Width = 510
+        Width = 765
         FieldName = 'nometarefa'
       end    
       item
+        MinSize = 15
+        MaxSize = 300
         Title.Caption = 'Situação da Tarefa'
-        Width = 120
+        Width = 180
         FieldName = 'opcaotarefa'
       end>
     DataSource = dsTarefaRegistro
@@ -61,10 +68,10 @@ object foPrincipal: TfoPrincipal
     TabOrder = 2
   end
   object edTarefa: TDBEdit
-    Left = 8
-    Height = 23
-    Top = 9
-    Width = 408
+    Left = 12
+    Height = 33
+    Top = 14
+    Width = 612
     DataField = 'nometarefa'
     DataSource = dsTarefaRegistro
     MaxLength = 250
@@ -72,11 +79,11 @@ object foPrincipal: TfoPrincipal
     TabOrder = 3
   end
   object cbOpcao: TComboBox
-    Left = 424
-    Height = 23
-    Top = 9
-    Width = 100
-    ItemHeight = 15
+    Left = 636
+    Height = 33
+    Top = 14
+    Width = 150
+    ItemHeight = 25
     ItemIndex = 0
     Items.Strings = (
       'Para fazer'
@@ -88,10 +95,10 @@ object foPrincipal: TfoPrincipal
     Text = 'Para fazer'
   end
   object nvTarefas: TDBNavigator
-    Left = 528
-    Height = 25
-    Top = 8
-    Width = 160
+    Left = 792
+    Height = 38
+    Top = 12
+    Width = 240
     BevelOuter = bvNone
     ChildSizing.EnlargeHorizontal = crsScaleChilds
     ChildSizing.EnlargeVertical = crsScaleChilds
@@ -99,8 +106,8 @@ object foPrincipal: TfoPrincipal
     ChildSizing.ShrinkVertical = crsScaleChilds
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 100
-    ClientHeight = 25
-    ClientWidth = 160
+    ClientHeight = 38
+    ClientWidth = 240
     DataSource = dsTarefaRegistro
     OnClick = nvTarefasClick
     Options = []
@@ -114,15 +121,15 @@ object foPrincipal: TfoPrincipal
     KeepConnection = False
     Transaction = trFichasLista
     AlwaysUseBigint = False
-    Left = 760
-    Top = 144
+    Left = 1140
+    Top = 216
   end
   object trFichasLista: TSQLTransaction
     Active = False
     Action = caCommitRetaining
     Database = coFichasLista
-    Left = 760
-    Top = 200
+    Left = 1140
+    Top = 300
   end
   object quFichasLista: TSQLQuery
     IndexName = 'DEFAULT_ORDER'
@@ -147,8 +154,8 @@ object foPrincipal: TfoPrincipal
     )
     Params = <>
     Macros = <>
-    Left = 760
-    Top = 256
+    Left = 1140
+    Top = 384
     object quFichasListacodigoficha: TAutoIncField
       FieldKind = fkData
       FieldName = 'codigoficha'
@@ -172,8 +179,8 @@ object foPrincipal: TfoPrincipal
   object dsFichasLista: TDataSource
     DataSet = quFichasLista
     OnDataChange = dsFichasListaDataChange
-    Left = 760
-    Top = 336
+    Left = 1140
+    Top = 504
   end
   object coTarefaRegistro: TSQLite3Connection
     Connected = False
@@ -181,15 +188,15 @@ object foPrincipal: TfoPrincipal
     KeepConnection = False
     Transaction = trTarefaRegistro
     AlwaysUseBigint = False
-    Left = 175
-    Top = 157
+    Left = 263
+    Top = 236
   end
   object trTarefaRegistro: TSQLTransaction
     Active = False
     Action = caCommitRetaining
     Database = coTarefaRegistro
-    Left = 176
-    Top = 208
+    Left = 264
+    Top = 312
   end
   object quTarefaRegistro: TSQLQuery
     IndexName = 'DEFAULT_ORDER'
@@ -226,8 +233,8 @@ object foPrincipal: TfoPrincipal
     )
     Params = <>
     Macros = <>
-    Left = 175
-    Top = 264
+    Left = 263
+    Top = 396
     object quTarefaRegistrocodigotarefa: TAutoIncField
       FieldKind = fkData
       FieldName = 'codigotarefa'
@@ -270,7 +277,7 @@ object foPrincipal: TfoPrincipal
   object dsTarefaRegistro: TDataSource
     DataSet = quTarefaRegistro
     OnDataChange = dsTarefaRegistroDataChange
-    Left = 320
-    Top = 264
+    Left = 480
+    Top = 396
   end
 end
