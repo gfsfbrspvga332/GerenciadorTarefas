@@ -50,7 +50,6 @@ type
 
 var
   foPrincipal: TfoPrincipal;
-  codigoficha: Integer = 0;
 
 implementation
 
@@ -164,9 +163,6 @@ begin
   //salva os dados
   quTarefaRegistroopcaotarefa.Value:=cbOpcao.Items[cbOpcao.ItemIndex];
   quTarefaRegistrocodigoficha.Value:=quFichasListacodigoficha.Value;
-
-  //salva o codigo da ficha
-  codigoficha:=quFichasListacodigoficha.Value;
 
   //fecha a conexao que lista fichas
   coFichasLista.Connected:=False;

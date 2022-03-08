@@ -50,7 +50,6 @@ type
 
 var
   foPrincipal: TfoPrincipal;
-  codigoficha: Integer = 0;
 
 implementation
 
@@ -142,8 +141,6 @@ end;
 
 //AO ABRIR A PESQUISA AQUI POSICIONA O REGISTRO NO ULTIMO REGISTRO FEITO
 procedure TfoPrincipal.quFichasListaAfterOpen(DataSet: TDataSet);
-var
-  indice: Integer;
 begin
   quFichasLista.First;
 end;
