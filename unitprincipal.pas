@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, DBGrids,
-  DBCtrls, unitGerenciaFichas, SQLite3Conn, SQLDB, DB;
+  DBCtrls, ExtCtrls, unitGerenciaFichas, SQLite3Conn, SQLDB, DB;
 
 type
 
@@ -31,6 +31,7 @@ type
     quTarefaRegistrocodigotarefa: TAutoIncField;
     quTarefaRegistronometarefa: TStringField;
     quTarefaRegistroopcaotarefa: TStringField;
+    rgFiltro: TRadioGroup;
     trTarefaRegistro: TSQLTransaction;
     trFichasLista: TSQLTransaction;
     procedure btGerenciarFichasClick(Sender: TObject);
@@ -42,6 +43,7 @@ type
     procedure quFichasListaAfterOpen(DataSet: TDataSet);
     procedure quTarefaRegistroAfterPost(DataSet: TDataSet);
     procedure quTarefaRegistroBeforePost(DataSet: TDataSet);
+    procedure rgFiltroClick(Sender: TObject);
   private
 
   public
@@ -87,9 +89,26 @@ procedure TfoPrincipal.dsFichasListaDataChange(Sender: TObject; Field: TField);
 begin
   if quFichasLista.RecordCount > 0 then
     begin
-      coTarefaRegistro.Connected:=False;
-      quTarefaRegistro.SQL.Text:='SELECT * FROM TAREFA WHERE codigoficha='+IntToStr(quFichasListacodigoficha.Value);
-      quTarefaRegistro.Open;
+      if rgFiltro.ItemIndex = 0 then
+        begin
+          coTarefaRegistro.Connected:=False;
+          quTarefaRegistro.SQL.Text:='SELECT * FROM TAREFA WHERE codigoficha='+IntToStr(quFichasListacodigoficha.Value);
+          quTarefaRegistro.Open;
+        end
+      else if rgFiltro.ItemIndex = 1 then
+        begin
+          coTarefaRegistro.Connected:=False;
+          quTarefaRegistro.SQL.Text:='SELECT * FROM TAREFA WHERE codigoficha='+IntToStr(quFichasListacodigoficha.Value)+
+                                             ' AND opcaotarefa="Para fazer"';
+          quTarefaRegistro.Open;
+        end
+      else
+      begin
+        coTarefaRegistro.Connected:=False;
+        quTarefaRegistro.SQL.Text:='SELECT * FROM TAREFA WHERE codigoficha='+IntToStr(quFichasListacodigoficha.Value)+
+                                             ' AND opcaotarefa="Feito"';
+        quTarefaRegistro.Open;
+      end;
     end
   else
     begin
@@ -166,6 +185,38 @@ begin
 
   //fecha a conexao que lista fichas
   coFichasLista.Connected:=False;
+end;
+
+//AO MUDAR O FILTRO MUDA OS VALORER DA LISTA
+procedure TfoPrincipal.rgFiltroClick(Sender: TObject);
+begin
+  if quFichasLista.RecordCount > 0 then
+    begin
+      if rgFiltro.ItemIndex = 0 then //TODOS
+        begin
+          coTarefaRegistro.Connected:=False;
+          quTarefaRegistro.SQL.Text:='SELECT * FROM TAREFA WHERE codigoficha='+IntToStr(quFichasListacodigoficha.Value);
+          quTarefaRegistro.Open;
+        end
+      else if rgFiltro.ItemIndex = 1 then //PARA FAZER
+        begin
+          coTarefaRegistro.Connected:=False;
+          quTarefaRegistro.SQL.Text:='SELECT * FROM TAREFA WHERE codigoficha='+IntToStr(quFichasListacodigoficha.Value)+
+                                             ' AND opcaotarefa="Para fazer"';
+          quTarefaRegistro.Open;
+        end
+      else
+      begin  //FEITOS
+        coTarefaRegistro.Connected:=False;
+        quTarefaRegistro.SQL.Text:='SELECT * FROM TAREFA WHERE codigoficha='+IntToStr(quFichasListacodigoficha.Value)+
+                                             ' AND opcaotarefa="Feito"';
+        quTarefaRegistro.Open;
+      end;
+    end
+  else
+    begin
+      coTarefaRegistro.Connected:=False;
+    end;
 end;
 
 end.
