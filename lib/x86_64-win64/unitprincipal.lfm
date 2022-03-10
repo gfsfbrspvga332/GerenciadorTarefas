@@ -1,39 +1,38 @@
 object foPrincipal: TfoPrincipal
-  Left = 697
-  Height = 610
-  Top = 1067
-  Width = 1324
+  Left = 2688
+  Height = 407
+  Top = 1616
+  Width = 883
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Gerenciador de Tarefas'
-  ClientHeight = 610
-  ClientWidth = 1324
-  DesignTimePPI = 144
+  ClientHeight = 407
+  ClientWidth = 883
   OnShow = FormShow
   Position = poScreenCenter
   LCLVersion = '2.2.0.4'
   object btGerenciarFichas: TButton
-    Left = 1044
-    Height = 38
-    Top = 12
-    Width = 268
+    Left = 696
+    Height = 25
+    Top = 8
+    Width = 179
     Caption = 'Gerenciar Fichas'
     OnClick = btGerenciarFichasClick
     ParentFont = False
     TabOrder = 0
   end
   object grFichasLista: TDBGrid
-    Left = 1044
-    Height = 540
-    Top = 60
-    Width = 268
+    Left = 696
+    Height = 360
+    Top = 40
+    Width = 179
     Color = clWindow
     Columns = <    
       item
-        MinSize = 15
-        MaxSize = 300
+        MinSize = 10
+        MaxSize = 200
         Title.Caption = 'Fichas Disponíveis'
-        Width = 210
+        Width = 140
         FieldName = 'nomeficha'
       end>
     DataSource = dsFichasLista
@@ -42,24 +41,24 @@ object foPrincipal: TfoPrincipal
     TabOrder = 1
   end
   object grListaTarefas: TDBGrid
-    Left = 12
-    Height = 468
-    Top = 132
-    Width = 1020
+    Left = 8
+    Height = 312
+    Top = 88
+    Width = 680
     Color = clWindow
     Columns = <    
       item
-        MinSize = 15
-        MaxSize = 300
+        MinSize = 10
+        MaxSize = 200
         Title.Caption = 'Tarefa a ser realizada'
-        Width = 765
+        Width = 510
         FieldName = 'nometarefa'
       end    
       item
-        MinSize = 15
-        MaxSize = 300
+        MinSize = 10
+        MaxSize = 200
         Title.Caption = 'Situação da Tarefa'
-        Width = 180
+        Width = 120
         FieldName = 'opcaotarefa'
       end>
     DataSource = dsTarefaRegistro
@@ -68,10 +67,10 @@ object foPrincipal: TfoPrincipal
     TabOrder = 2
   end
   object edTarefa: TDBEdit
-    Left = 12
-    Height = 33
-    Top = 14
-    Width = 612
+    Left = 8
+    Height = 23
+    Top = 9
+    Width = 408
     DataField = 'nometarefa'
     DataSource = dsTarefaRegistro
     MaxLength = 250
@@ -79,11 +78,11 @@ object foPrincipal: TfoPrincipal
     TabOrder = 3
   end
   object cbOpcao: TComboBox
-    Left = 636
-    Height = 33
-    Top = 14
-    Width = 150
-    ItemHeight = 25
+    Left = 424
+    Height = 23
+    Top = 9
+    Width = 100
+    ItemHeight = 15
     ItemIndex = 0
     Items.Strings = (
       'Para fazer'
@@ -95,10 +94,10 @@ object foPrincipal: TfoPrincipal
     Text = 'Para fazer'
   end
   object nvTarefas: TDBNavigator
-    Left = 792
-    Height = 38
-    Top = 12
-    Width = 240
+    Left = 528
+    Height = 25
+    Top = 8
+    Width = 160
     BevelOuter = bvNone
     ChildSizing.EnlargeHorizontal = crsScaleChilds
     ChildSizing.EnlargeVertical = crsScaleChilds
@@ -106,8 +105,8 @@ object foPrincipal: TfoPrincipal
     ChildSizing.ShrinkVertical = crsScaleChilds
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 100
-    ClientHeight = 38
-    ClientWidth = 240
+    ClientHeight = 25
+    ClientWidth = 160
     DataSource = dsTarefaRegistro
     OnClick = nvTarefasClick
     Options = []
@@ -116,10 +115,10 @@ object foPrincipal: TfoPrincipal
     VisibleButtons = [nbInsert, nbPost, nbCancel]
   end
   object rgFiltro: TRadioGroup
-    Left = 12
-    Height = 60
-    Top = 60
-    Width = 1020
+    Left = 8
+    Height = 40
+    Top = 40
+    Width = 680
     AutoFill = True
     Caption = 'Filtro'
     ChildSizing.LeftRightSpacing = 6
@@ -129,8 +128,8 @@ object foPrincipal: TfoPrincipal
     ChildSizing.ShrinkVertical = crsScaleChilds
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 3
-    ClientHeight = 30
-    ClientWidth = 1016
+    ClientHeight = 20
+    ClientWidth = 676
     Columns = 3
     ItemIndex = 0
     Items.Strings = (
@@ -147,15 +146,15 @@ object foPrincipal: TfoPrincipal
     KeepConnection = False
     Transaction = trFichasLista
     AlwaysUseBigint = False
-    Left = 1140
-    Top = 216
+    Left = 760
+    Top = 144
   end
   object trFichasLista: TSQLTransaction
     Active = False
     Action = caCommitRetaining
     Database = coFichasLista
-    Left = 1140
-    Top = 300
+    Left = 760
+    Top = 200
   end
   object quFichasLista: TSQLQuery
     IndexName = 'DEFAULT_ORDER'
@@ -180,8 +179,8 @@ object foPrincipal: TfoPrincipal
     )
     Params = <>
     Macros = <>
-    Left = 1140
-    Top = 384
+    Left = 760
+    Top = 256
     object quFichasListacodigoficha: TAutoIncField
       FieldKind = fkData
       FieldName = 'codigoficha'
@@ -205,8 +204,8 @@ object foPrincipal: TfoPrincipal
   object dsFichasLista: TDataSource
     DataSet = quFichasLista
     OnDataChange = dsFichasListaDataChange
-    Left = 1140
-    Top = 504
+    Left = 760
+    Top = 336
   end
   object coTarefaRegistro: TSQLite3Connection
     Connected = False
@@ -214,15 +213,15 @@ object foPrincipal: TfoPrincipal
     KeepConnection = False
     Transaction = trTarefaRegistro
     AlwaysUseBigint = False
-    Left = 263
-    Top = 236
+    Left = 175
+    Top = 157
   end
   object trTarefaRegistro: TSQLTransaction
     Active = False
     Action = caCommitRetaining
     Database = coTarefaRegistro
-    Left = 264
-    Top = 312
+    Left = 176
+    Top = 208
   end
   object quTarefaRegistro: TSQLQuery
     IndexName = 'DEFAULT_ORDER'
@@ -259,8 +258,8 @@ object foPrincipal: TfoPrincipal
     )
     Params = <>
     Macros = <>
-    Left = 263
-    Top = 396
+    Left = 175
+    Top = 264
     object quTarefaRegistrocodigotarefa: TAutoIncField
       FieldKind = fkData
       FieldName = 'codigotarefa'
@@ -303,7 +302,7 @@ object foPrincipal: TfoPrincipal
   object dsTarefaRegistro: TDataSource
     DataSet = quTarefaRegistro
     OnDataChange = dsTarefaRegistroDataChange
-    Left = 480
-    Top = 396
+    Left = 320
+    Top = 264
   end
 end

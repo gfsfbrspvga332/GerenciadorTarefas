@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, DBGrids,
-  DBCtrls, ExtCtrls, unitGerenciaFichas, SQLite3Conn, SQLDB, DB;
+  DBCtrls, ExtCtrls, Menus, unitGerenciaFichas, SQLite3Conn, SQLDB, DB;
 
 type
 
@@ -18,10 +18,12 @@ type
     dsTarefaRegistro: TDataSource;
     edTarefa: TDBEdit;
     grListaTarefas: TDBGrid;
+    miDeletar: TMenuItem;
     nvTarefas: TDBNavigator;
     dsFichasLista: TDataSource;
     grFichasLista: TDBGrid;
     coFichasLista: TSQLite3Connection;
+    ppMenuFichas: TPopupMenu;
     quFichasLista: TSQLQuery;
     quFichasListacodigoficha: TAutoIncField;
     quFichasListanomeficha: TStringField;
@@ -99,14 +101,14 @@ begin
         begin
           coTarefaRegistro.Connected:=False;
           quTarefaRegistro.SQL.Text:='SELECT * FROM TAREFA WHERE codigoficha='+IntToStr(quFichasListacodigoficha.Value)+
-                                             'opcaotarefa=Para fazer';
+                                             ' AND opcaotarefa="Para fazer"';
           quTarefaRegistro.Open;
         end
       else
       begin
         coTarefaRegistro.Connected:=False;
         quTarefaRegistro.SQL.Text:='SELECT * FROM TAREFA WHERE codigoficha='+IntToStr(quFichasListacodigoficha.Value)+
-                                             'opcaotarefa=Feito';
+                                             ' AND opcaotarefa="Feito"';
         quTarefaRegistro.Open;
       end;
     end
