@@ -85,11 +85,17 @@ begin
   quGeral.SQL.Text:='DELETE FROM TAREFA WHERE codigoficha=:CODIGO';
   quGeral.Params.ParamByName('CODIGO').Value:=codigo;
   quGeral.ExecSQL;
-  //quGeral.ApplyUpdates;
   trGeral.CommitRetaining;
   coGeral.Connected:=False;
 
   //DELETA ESTA FICHA
+  coGeral.Connected:=False;
+  quGeral.SQL.Clear;
+  quGeral.SQL.Text:='DELETE FROM FICHA WHERE codigoficha=:CODIGO';
+  quGeral.Params.ParamByName('CODIGO').Value:=codigo;
+  quGeral.ExecSQL;
+  trGeral.CommitRetaining;
+  coGeral.Connected:=False;
 
   //REABRE A CONEXAO
   quFichasRegistro.Open;

@@ -37,7 +37,6 @@ object foPrincipal: TfoPrincipal
       end>
     DataSource = dsFichasLista
     ParentFont = False
-    PopupMenu = ppMenuFichas
     Scrollbars = ssAutoVertical
     TabOrder = 1
   end
@@ -305,12 +304,5 @@ object foPrincipal: TfoPrincipal
     OnDataChange = dsTarefaRegistroDataChange
     Left = 320
     Top = 264
-  end
-  object ppMenuFichas: TPopupMenu
-    Left = 586
-    Top = 186
-    object miDeletar: TMenuItem
-      Caption = 'Deletar esta ficha'
-    end
   end
 end

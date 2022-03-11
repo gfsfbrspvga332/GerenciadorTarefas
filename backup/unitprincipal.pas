@@ -18,12 +18,10 @@ type
     dsTarefaRegistro: TDataSource;
     edTarefa: TDBEdit;
     grListaTarefas: TDBGrid;
-    miDeletar: TMenuItem;
     nvTarefas: TDBNavigator;
     dsFichasLista: TDataSource;
     grFichasLista: TDBGrid;
     coFichasLista: TSQLite3Connection;
-    ppMenuFichas: TPopupMenu;
     quFichasLista: TSQLQuery;
     quFichasListacodigoficha: TAutoIncField;
     quFichasListanomeficha: TStringField;
